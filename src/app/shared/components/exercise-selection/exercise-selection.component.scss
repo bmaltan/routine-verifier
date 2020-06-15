@@ -1,0 +1,35 @@
+@import 'variables';
+
+.exercise-container {
+    height: 100%;
+    overflow-y: auto;
+
+    .exercise {
+        cursor: pointer;
+        padding: 4px 12px 4px 4px;
+        
+        &:hover {
+            background: $highlight;
+            
+            .equipment {
+                background: lighten($highlight, 5);
+            }
+        }
+            
+        &.selected {
+            background: $primary;
+
+            .equipment {
+                background: lighten($primary, 5);
+            }
+        }
+
+        .equipment {
+            background: #eeeeee;
+            padding: 4px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+   
+    }
+}

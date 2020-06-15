@@ -1,0 +1,19 @@
+<div class="exercise-container">
+    <div class="exercise" *ngFor="let exercise of exercises" (click)="toggleExercise(exercise)"
+        [class.selected]="exercise.isSelected">
+        <div gdColumns="30px 1fr auto">
+            <span>
+
+            </span>
+            <span>
+                {{ exercise.name }}
+            </span>
+            <span>
+                <span class="equipment">D</span>
+                <span class="equipment">B</span>
+                <span class="equipment">N</span>
+                <span class="equipment">M</span>
+            </span>
+        </div>
+    </div>
+</div>
