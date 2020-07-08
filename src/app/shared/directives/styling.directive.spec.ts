@@ -1,4 +1,4 @@
-import { CardDirective } from './card.directive';
+import { CardDirective } from './styling.directive';
 
 describe('CardDirective', () => {
   it('should create an instance', () => {

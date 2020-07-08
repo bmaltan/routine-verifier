@@ -1,0 +1,12 @@
+<div *ngIf="neglectedMuscles?.length">
+    <h3 class="title-right">Neglected Muscles</h3>
+
+    <div rv-panel class="neglected-panel">
+        <div class="neglected-slider">
+            <div rv-card [class.filtering]="muscle.id === muscleAsFilter.id" *ngFor="let muscle of neglectedMuscles"
+                (click)="setMuscleAsFilter(muscle)">
+                {{ muscle.name }}
+            </div>
+        </div>
+    </div>
+</div>

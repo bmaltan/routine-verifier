@@ -1,16 +1,17 @@
 <div class="content">
-    <div [gdColumns]="'1fr 2fr'" gdGap="1rem">
-        <div>
+    <div [gdColumns]="mobileGrid" gdColumns.gt-sm="1fr 2fr" gdGap="1rem" gdAreas="x y">
+        <div gdArea="x">
             <div style="height: 46px"></div>
-            <div app-card #engineCard>
+            <div #engineCard>
                 <app-engine #engine></app-engine>
             </div>
         </div>
-        <div>
-            <div class="title title-right">Routine Verifier</div>
-            <div app-card>
-                <app-exercise-selection></app-exercise-selection>
-            </div>
+        <div gdArea="y">
+            <h2 class="title-right">Routine Verifier</h2>
+            <app-exercise-selection></app-exercise-selection>
         </div>
+    </div>
+    <div>
+        <app-neglected></app-neglected>
     </div>
 </div>

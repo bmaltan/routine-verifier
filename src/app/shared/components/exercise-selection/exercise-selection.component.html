@@ -1,19 +1,27 @@
-<div class="exercise-container">
-    <div class="exercise" *ngFor="let exercise of exercises" (click)="toggleExercise(exercise)"
-        [class.selected]="exercise.isSelected">
-        <div gdColumns="30px 1fr auto">
-            <span>
+<div rv-panel rv-main>
+    <div class="exercise-container">
+        <div class="exercise" *ngFor="let exercise of exercises" (click)="toggleExercise(exercise)"
+            [class.selected]="exercise.isSelected">
+            <div gdColumns="30px 1fr auto">
+                <span>
 
-            </span>
-            <span>
-                {{ exercise.name }}
-            </span>
-            <span>
-                <span class="equipment">D</span>
-                <span class="equipment">B</span>
-                <span class="equipment">N</span>
-                <span class="equipment">M</span>
-            </span>
+                </span>
+                <span>
+                    {{ exercise.name }}
+                </span>
+                <span>
+                    <span class="equipment" *ngIf="exercise.details.noEquipment">N</span>
+                </span>
+            </div>
         </div>
+    </div>
+</div>
+<div class="actions" gdColumns="1fr auto">
+    <div>
+
+    </div>
+    <div>
+        <button rv-button (click)="resetSelection()">Reset</button>
+        <button rv-button (click)="evaluate()" [disabled]="!hasSelectedExercise">Evaluate</button>
     </div>
 </div>

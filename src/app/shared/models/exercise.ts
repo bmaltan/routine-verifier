@@ -4,4 +4,7 @@ export interface Exercise {
     primaryMusclesHit: number[];
     secondaryMusclesHit?: number[];
     isSelected: boolean;
+    details: {
+        noEquipment: boolean;
+    }
 }

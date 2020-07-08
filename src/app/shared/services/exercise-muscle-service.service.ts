@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Muscle, MuscleGroup } from '../models/muscle';
 import { Exercise } from '../models/exercise';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -62,69 +63,329 @@ export class ExerciseMuscleService {
     ];
 
     private exercises: Exercise[] = [
-        { id: 2, name: 'Arnold Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false },
-        { id: 3, name: 'Behind Neck Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false },
-        { id: 4, name: 'Bench Dip', primaryMusclesHit: [35], secondaryMusclesHit: [28, 13, 14, 15, 6, 5, 1], isSelected: false },
-        { id: 5, name: 'Bench Press', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35], isSelected: false },
-        { id: 6, name: 'Bent-over Row', primaryMusclesHit: [1, 6], secondaryMusclesHit: [3, 4, 1, 30, 7, 17, 37, 13], isSelected: false },
-        { id: 7, name: 'Bird Dog', primaryMusclesHit: [42], secondaryMusclesHit: [22, 4, 3, 28, 29], isSelected: false },
-        { id: 8, name: 'Standing Calf Raise', primaryMusclesHit: [9], secondaryMusclesHit: [10], isSelected: false },
-        { id: 9, name: 'Chest Dip', primaryMusclesHit: [13], secondaryMusclesHit: [28, 35, 14, 15, 6, 5, 1], isSelected: false },
-        { id: 10, name: 'Chin-up', primaryMusclesHit: [1], secondaryMusclesHit: [17, 37, 30, 6, 5, 3, 4, 13, 15], isSelected: false },
-        { id: 11, name: 'Concentration Curl', primaryMusclesHit: [37], secondaryMusclesHit: [36, 17], isSelected: false },
-        { id: 12, name: 'Crunch', primaryMusclesHit: [38], secondaryMusclesHit: [40], isSelected: false },
-        { id: 14, name: 'Deadlift', primaryMusclesHit: [22], secondaryMusclesHit: [32, 34, 33, 10], isSelected: false },
-        { id: 15, name: 'Front Lateral Raise', primaryMusclesHit: [31], secondaryMusclesHit: [29, 28, 16, 3, 4], isSelected: false },
-        { id: 16, name: 'Front Neck Bridge', primaryMusclesHit: [26], secondaryMusclesHit: [27, 2, 5, 42], isSelected: false },
-        { id: 17, name: 'Good Morning', primaryMusclesHit: [33], secondaryMusclesHit: [22, 34], isSelected: false },
-        { id: 18, name: 'Hip Abduction', primaryMusclesHit: [34], secondaryMusclesHit: [22], isSelected: false },
-        { id: 19, name: 'Hip Thrust', primaryMusclesHit: [22], secondaryMusclesHit: [32], isSelected: false },
-        { id: 20, name: 'Hyperextension', primaryMusclesHit: [42], secondaryMusclesHit: [22, 33, 34], isSelected: false },
-        { id: 21, name: 'Incline Bench Press', primaryMusclesHit: [14], secondaryMusclesHit: [28, 35], isSelected: false },
-        { id: 22, name: 'Inverted Row', primaryMusclesHit: [1, 2, 3, 4], secondaryMusclesHit: [6, 30, 7, 37, 17, 13], isSelected: false },
-        { id: 23, name: 'Kickback', primaryMusclesHit: [35], secondaryMusclesHit: [30, 1, 3, 4, 6], isSelected: false },
-        { id: 24, name: 'Lateral Neck Flexion', primaryMusclesHit: [26], secondaryMusclesHit: [27, 2, 5, 42], isSelected: false },
-        { id: 25, name: 'Lateral Raise', primaryMusclesHit: [29], secondaryMusclesHit: [28, 31, 3, 4, 16], isSelected: false },
-        { id: 26, name: 'Leg Curl', primaryMusclesHit: [33], secondaryMusclesHit: [9, 12], isSelected: false },
-        { id: 27, name: 'Leg Hip Raise', primaryMusclesHit: [38], secondaryMusclesHit: [40, 34], isSelected: false },
-        { id: 29, name: 'Lunge', primaryMusclesHit: [32], secondaryMusclesHit: [22, 34, 10], isSelected: false },
-        { id: 30, name: 'Lying Hip External Rotation', primaryMusclesHit: [25], isSelected: false },
-        { id: 31, name: 'Lying Neck Extension', primaryMusclesHit: [26], isSelected: false },
-        { id: 33, name: 'Military Press', primaryMusclesHit: [28], secondaryMusclesHit: [14, 35, 29, 3, 4, 16], isSelected: false },
-        { id: 34, name: 'Neck Extension', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 26, 42], isSelected: false },
-        { id: 35, name: 'Neck Flexion', primaryMusclesHit: [26], isSelected: false },
-        { id: 36, name: 'Neck Retraction', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 42], isSelected: false },
-        { id: 37, name: 'Neck Rotation', primaryMusclesHit: [26], secondaryMusclesHit: [27, 42, 5, 2], isSelected: false },
-        { id: 38, name: 'Pike Press', primaryMusclesHit: [28], secondaryMusclesHit: [14, 35, 29, 3, 4, 16], isSelected: false },
-        { id: 39, name: 'Pronation', primaryMusclesHit: [20], isSelected: false },
-        { id: 40, name: 'Pullover', primaryMusclesHit: [13], secondaryMusclesHit: [1, 35, 30, 15, 6, 5], isSelected: false },
-        { id: 41, name: 'Pulldown', primaryMusclesHit: [1], secondaryMusclesHit: [3, 4, 5, 6, 7, 15, 17, 36, 37], isSelected: false },
-        { id: 42, name: 'Push-up', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35], isSelected: false },
-        { id: 43, name: 'Pushdown', primaryMusclesHit: [35], secondaryMusclesHit: [1, 7, 13, 15, 30, 38, 40], isSelected: false },
-        { id: 44, name: 'Reverse Fly', primaryMusclesHit: [30], secondaryMusclesHit: [29, 7, 3, 4, 6], isSelected: false },
-        { id: 45, name: 'Reverse Curl', primaryMusclesHit: [17], secondaryMusclesHit: [37, 36], isSelected: false },
-        { id: 46, name: 'Rear Delt Row', primaryMusclesHit: [30], secondaryMusclesHit: [7, 29, 3, 4, 17, 6, 37], isSelected: false },
-        { id: 47, name: 'Rear Lateral Raise', primaryMusclesHit: [30], secondaryMusclesHit: [7, 29, 3, 4, 6], isSelected: false },
-        { id: 48, name: 'Rear Neck Bridge', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 26, 42, 22, 32], isSelected: false },
-        { id: 49, name: 'Reclined Shoulder Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false },
-        { id: 50, name: 'Reverse Wrist Curl', primaryMusclesHit: [19], isSelected: false },
-        { id: 52, name: 'Seated Twist', primaryMusclesHit: [40], isSelected: false },
-        { id: 53, name: 'Shoulder Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 14, 16], isSelected: false },
-        { id: 54, name: 'Shrug', primaryMusclesHit: [2], secondaryMusclesHit: [3, 5], isSelected: false },
-        { id: 55, name: 'Sit-up', primaryMusclesHit: [38], secondaryMusclesHit: [24, 40], isSelected: false },
-        { id: 56, name: 'Squat', primaryMusclesHit: [32], secondaryMusclesHit: [22, 34, 10], isSelected: false },
-        { id: 57, name: 'Supination', primaryMusclesHit: [21], secondaryMusclesHit: [36], isSelected: false },
-        { id: 58, name: 'Wrist Curl', primaryMusclesHit: [18], isSelected: false },
-        { id: 60, name: 'Wrist Roller', primaryMusclesHit: [18], isSelected: false },
-        { id: 61, name: 'V-up', primaryMusclesHit: [38], secondaryMusclesHit: [24, 34], isSelected: false },
-        { id: 62, name: 'T-Bar Row', primaryMusclesHit: [1, 3, 4, 7, 30], isSelected: false },
-        { id: 63, name: 'Dip', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35, 15, 6, 5, 1], isSelected: false },
-        { id: 64, name: 'Triceps Extension', primaryMusclesHit: [35], isSelected: false },
-        { id: 68, name: 'Upright Row', primaryMusclesHit: [29], secondaryMusclesHit: [31, 28, 37, 17, 36, 3, 4, 7, 16], isSelected: false },
-        { id: 69, name: 'Y Raise', primaryMusclesHit: [29], secondaryMusclesHit: [31, 7, 3, 4, 16, 28, 30], isSelected: false }
-    ];
+        {
+            id: 2, name: 'Arnold Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 3, name: 'Behind Neck Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 4, name: 'Bench Dip', primaryMusclesHit: [35], secondaryMusclesHit: [28, 13, 14, 15, 6, 5, 1], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 5, name: 'Bench Press', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 6, name: 'Bent-over Row', primaryMusclesHit: [1, 6], secondaryMusclesHit: [3, 4, 1, 30, 7, 17, 37, 13], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 7, name: 'Bird Dog', primaryMusclesHit: [42], secondaryMusclesHit: [22, 4, 3, 28, 29], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 8, name: 'Standing Calf Raise', primaryMusclesHit: [9], secondaryMusclesHit: [10], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 9, name: 'Chest Dip', primaryMusclesHit: [13], secondaryMusclesHit: [28, 35, 14, 15, 6, 5, 1], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 10, name: 'Chin-up', primaryMusclesHit: [1], secondaryMusclesHit: [17, 37, 30, 6, 5, 3, 4, 13, 15], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 11, name: 'Concentration Curl', primaryMusclesHit: [37], secondaryMusclesHit: [36, 17], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 12, name: 'Crunch', primaryMusclesHit: [38], secondaryMusclesHit: [40], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 14, name: 'Deadlift', primaryMusclesHit: [22], secondaryMusclesHit: [32, 34, 33, 10], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 15, name: 'Front Lateral Raise', primaryMusclesHit: [31], secondaryMusclesHit: [29, 28, 16, 3, 4], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 16, name: 'Front Neck Bridge', primaryMusclesHit: [26], secondaryMusclesHit: [27, 2, 5, 42], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 17, name: 'Good Morning', primaryMusclesHit: [33], secondaryMusclesHit: [22, 34], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 18, name: 'Hip Abduction', primaryMusclesHit: [34], secondaryMusclesHit: [22], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 19, name: 'Hip Thrust', primaryMusclesHit: [22], secondaryMusclesHit: [32], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 20, name: 'Hyperextension', primaryMusclesHit: [42], secondaryMusclesHit: [22, 33, 34], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 21, name: 'Incline Bench Press', primaryMusclesHit: [14], secondaryMusclesHit: [28, 35], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 22, name: 'Inverted Row', primaryMusclesHit: [1, 2, 3, 4], secondaryMusclesHit: [6, 30, 7, 37, 17, 13], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 23, name: 'Kickback', primaryMusclesHit: [35], secondaryMusclesHit: [30, 1, 3, 4, 6], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 24, name: 'Lateral Neck Flexion', primaryMusclesHit: [26], secondaryMusclesHit: [27, 2, 5, 42], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 25, name: 'Lateral Raise', primaryMusclesHit: [29], secondaryMusclesHit: [28, 31, 3, 4, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 26, name: 'Leg Curl', primaryMusclesHit: [33], secondaryMusclesHit: [9, 12], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 27, name: 'Leg Hip Raise', primaryMusclesHit: [38], secondaryMusclesHit: [40, 34], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 29, name: 'Lunge', primaryMusclesHit: [32], secondaryMusclesHit: [22, 34, 10], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 30, name: 'Lying Hip External Rotation', primaryMusclesHit: [25], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 31, name: 'Lying Neck Extension', primaryMusclesHit: [26], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 33, name: 'Military Press', primaryMusclesHit: [28], secondaryMusclesHit: [14, 35, 29, 3, 4, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 34, name: 'Neck Extension', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 26, 42], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 35, name: 'Neck Flexion', primaryMusclesHit: [26], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 36, name: 'Neck Retraction', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 42], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 37, name: 'Neck Rotation', primaryMusclesHit: [26], secondaryMusclesHit: [27, 42, 5, 2], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 38, name: 'Pike Press', primaryMusclesHit: [28], secondaryMusclesHit: [14, 35, 29, 3, 4, 16], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 39, name: 'Pronation', primaryMusclesHit: [20], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 40, name: 'Pullover', primaryMusclesHit: [13], secondaryMusclesHit: [1, 35, 30, 15, 6, 5], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 41, name: 'Pulldown', primaryMusclesHit: [1], secondaryMusclesHit: [3, 4, 5, 6, 7, 15, 17, 36, 37], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 42, name: 'Push-up', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 43, name: 'Pushdown', primaryMusclesHit: [35], secondaryMusclesHit: [1, 7, 13, 15, 30, 38, 40], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 44, name: 'Reverse Fly', primaryMusclesHit: [30], secondaryMusclesHit: [29, 7, 3, 4, 6], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 45, name: 'Reverse Curl', primaryMusclesHit: [17], secondaryMusclesHit: [37, 36], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 46, name: 'Rear Delt Row', primaryMusclesHit: [30], secondaryMusclesHit: [7, 29, 3, 4, 17, 6, 37], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 47, name: 'Rear Lateral Raise', primaryMusclesHit: [30], secondaryMusclesHit: [7, 29, 3, 4, 6], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 48, name: 'Rear Neck Bridge', primaryMusclesHit: [27], secondaryMusclesHit: [2, 5, 26, 42, 22, 32], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 49, name: 'Reclined Shoulder Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 50, name: 'Reverse Wrist Curl', primaryMusclesHit: [19], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 52, name: 'Seated Twist', primaryMusclesHit: [40], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 53, name: 'Shoulder Press', primaryMusclesHit: [28], secondaryMusclesHit: [29, 31, 35, 3, 4, 14, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 54, name: 'Shrug', primaryMusclesHit: [2], secondaryMusclesHit: [3, 5], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 55, name: 'Sit-up', primaryMusclesHit: [38], secondaryMusclesHit: [24, 40], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 56, name: 'Squat', primaryMusclesHit: [32], secondaryMusclesHit: [22, 34, 10], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 57, name: 'Supination', primaryMusclesHit: [21], secondaryMusclesHit: [36], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 58, name: 'Wrist Curl', primaryMusclesHit: [18], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 60, name: 'Wrist Roller', primaryMusclesHit: [18], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 61, name: 'V-up', primaryMusclesHit: [38], secondaryMusclesHit: [24, 34], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 70, name: 'Wall Side Neck Bridge', primaryMusclesHit: [26], secondaryMusclesHit: [27, 2, 5, 42], isSelected: false, details: {
+                noEquipment: true
+            }
+        },
+        {
+            id: 62, name: 'T-Bar Row', primaryMusclesHit: [1, 3, 4, 7, 30], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 63, name: 'Dip', primaryMusclesHit: [13], secondaryMusclesHit: [14, 28, 35, 15, 6, 5, 1], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 64, name: 'Triceps Extension', primaryMusclesHit: [35], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 68, name: 'Upright Row', primaryMusclesHit: [29], secondaryMusclesHit: [31, 28, 37, 17, 36, 3, 4, 7, 16], isSelected: false, details: {
+                noEquipment: false
+            }
+        },
+        {
+            id: 69, name: 'Y Raise', primaryMusclesHit: [29], secondaryMusclesHit: [31, 7, 3, 4, 16, 28, 30], isSelected: false, details: {
+                noEquipment: false
+            }
+        }
+    ]
 
-    constructor() { }
+    private selectedMuscle: BehaviorSubject<string> = new BehaviorSubject('');
+
+    private musclesHit: BehaviorSubject<Set<string>[]> = new BehaviorSubject([new Set()]);
+    private neglegtedMuscles: BehaviorSubject<Muscle[]> = new BehaviorSubject([] as Muscle[]);
+
+    private muscleForFilter: BehaviorSubject<Muscle> = new BehaviorSubject({} as Muscle);
+
+    private hasSelectedExercise: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private isEvaluating: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    constructor() {
+    }
+
+    getExercises() {
+        return this.exercises;
+    }
 
     getMuscles(muscleGroup?: MuscleGroup): Muscle[] {
         if (muscleGroup) {
@@ -134,7 +395,98 @@ export class ExerciseMuscleService {
         }
     }
 
-    getExercises(): Exercise[] {
-        return this.exercises;
+    toggleExercise(exercise: Exercise) {
+        exercise.isSelected = !exercise.isSelected;
+        this.processExerciseSelection();
+    }
+
+    private processExerciseSelection() {
+        const primaryMusclesHit: Set<string> = new Set();
+        const secondaryMusclesHit: Set<string> = new Set();
+
+        this.exercises.filter(exercise => exercise.isSelected).map(exercise => {
+            exercise.primaryMusclesHit?.forEach(muscle => primaryMusclesHit.add(muscle.toString()));
+            exercise.secondaryMusclesHit?.forEach(muscle => secondaryMusclesHit.add(muscle.toString()));
+        });
+
+        this.musclesHit.next([primaryMusclesHit, secondaryMusclesHit]);
+
+        if (this.exercises.some(exercise => exercise.isSelected)) {
+            this.hasSelectedExercise.next(true);
+        } else {
+            this.hasSelectedExercise.next(false);
+        }
+    }
+
+    resetSelection() {
+        this.isEvaluating.next(false);
+        this.exercises.map(exercise => {
+            exercise.isSelected = false;
+            return exercise;
+        });
+
+        this.processExerciseSelection();
+        this.resetNeglectedMuscles();
+    }
+
+    highlightMuscle(name: string) {
+        if (name === '00') {
+            this.selectedMuscle.next('Skeleton');
+            setTimeout(() => { this.selectedMuscle.next('') }, 2000);
+        } else {
+            const selectedMuscle = this.muscles.find(muscle => muscle.id === parseInt(name))?.name;
+            if (selectedMuscle) this.selectedMuscle.next(selectedMuscle);
+            setTimeout(() => { this.selectedMuscle.next('') }, 2000);
+        }
+    }
+
+    getSelectedMuscle(): BehaviorSubject<string> {
+        return this.selectedMuscle;
+    }
+
+    getMusclesHit(): BehaviorSubject<Set<string>[]> {
+        return this.musclesHit;
+    }
+
+    evaluate() {
+        this.isEvaluating.next(true);
+        let neglegtedMuscles: Muscle[] = [];
+
+        this.muscles.forEach(muscle => {
+            if (![...this.musclesHit.getValue()[0]].includes(muscle.id.toString())
+                && ![...this.musclesHit.getValue()[1]].includes(muscle.id.toString())) {
+                neglegtedMuscles.push(muscle);
+            }
+        })
+
+        this.neglegtedMuscles.next(neglegtedMuscles);
+    }
+
+    getNeglectedMuscles(): BehaviorSubject<Muscle[]> {
+        return this.neglegtedMuscles;
+    }
+
+    resetNeglectedMuscles(): void {
+        this.neglegtedMuscles.next([] as Muscle[])
+    }
+
+    setMuscleAsFilter(muscle?: Muscle) {
+        if (muscle) {
+            this.muscleForFilter.next(muscle);
+        } else {
+            this.muscleForFilter.next({} as Muscle);
+        }
+    }
+
+    getMuscleAsFilter(): BehaviorSubject<Muscle> {
+        return this.muscleForFilter;
+    }
+
+    selectionExists(): BehaviorSubject<boolean> {
+        return this.hasSelectedExercise;
+    }
+
+    getIsEvaluating(): BehaviorSubject<boolean> {
+        return this.isEvaluating;
     }
 }

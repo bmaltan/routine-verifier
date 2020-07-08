@@ -1,11 +1,11 @@
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
-    selector: '[app-card]'
+    selector: '[rv-button]'
 })
-export class CardDirective {
+export class ButtonDirective {
     @HostBinding('class')
-    elementClass = 'app-card';
+    elementClass = 'rv-button';
 
     constructor() { }
 

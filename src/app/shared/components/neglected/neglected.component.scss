@@ -1,0 +1,9 @@
+.neglected-panel {
+    padding: 8px;
+    overflow: auto;
+
+    .neglected-slider {
+        height: 40px;
+        width: max-content;
+    }
+}

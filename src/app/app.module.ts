@@ -5,18 +5,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { EngineComponent } from './engine/engine.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CardDirective } from './shared/directives/card.directive';
+import { PanelDirective, CardDirective, MainDirective } from './shared/directives/styling.directive';
 import { ExerciseSelectionComponent } from './shared/components/exercise-selection/exercise-selection.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ButtonDirective } from './shared/directives/button.directive';
+import { NeglectedComponent } from './shared/components/neglected/neglected.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         EngineComponent,
         DashboardComponent,
+        ExerciseSelectionComponent,
+        NeglectedComponent,
+
+        ButtonDirective,
+        PanelDirective,
         CardDirective,
-        ExerciseSelectionComponent
+        MainDirective
     ],
     imports: [
         BrowserModule,

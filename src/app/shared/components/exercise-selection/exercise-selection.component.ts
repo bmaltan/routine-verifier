@@ -13,28 +13,55 @@ export class ExerciseSelectionComponent implements OnInit {
     exercises: Exercise[] = [];
     muscles: Muscle[] = [];
 
-    selectedExercises: Exercise[] = [];
+    primaryMuscles: Set<number> = new Set();
+    secondaryMuscles: Set<number> = new Set();
 
-    primaryMuscles: number[] = [];
-    secondaryMuscles: number[] = [];
+    suggestionsActive: boolean = false;
+
+    muscleAsFilter: Muscle = {} as Muscle;
+
+    hasSelectedExercise: boolean = false;
 
     constructor(private exerciseMuscleService: ExerciseMuscleService) { }
 
     ngOnInit(): void {
+        this.getExercises();
+
+        this.exerciseMuscleService.getMuscleAsFilter().subscribe(muscle => {
+            if (muscle.id) {
+                this.muscleAsFilter = muscle;
+                this.filterExercises(muscle);
+            } else {
+                this.getExercises();
+            }
+        });
+
+        this.exerciseMuscleService.selectionExists().subscribe(selectionExists => {
+            this.hasSelectedExercise = selectionExists;
+        })
+    }
+
+    getExercises() {
         this.exercises = this.exerciseMuscleService.getExercises();
-        this.muscles = this.exerciseMuscleService.getMuscles();
+    }
+
+    filterExercises(muscle: Muscle) {
+        this.getExercises();
+        this.exercises = this.exercises.filter(exercise => exercise.primaryMusclesHit.includes(muscle.id)
+            || (exercise.secondaryMusclesHit?.length ? exercise.secondaryMusclesHit.includes(muscle.id) : false))
     }
 
     toggleExercise(exercise: Exercise): void {
-        exercise.isSelected = !exercise.isSelected;
-        this.saveSelectedExercises();
+        this.exerciseMuscleService.toggleExercise(exercise);
     }
 
-    saveSelectedExercises() {
-        this.selectedExercises = this.exercises.filter(exercise => exercise.isSelected);
-        this.selectedExercises.forEach(exercise => {
+    resetSelection() {
+        this.exerciseMuscleService.resetSelection();
+        this.getExercises();
+    }
 
-        })
+    evaluate() {
+        this.exerciseMuscleService.evaluate();
     }
 
 }
