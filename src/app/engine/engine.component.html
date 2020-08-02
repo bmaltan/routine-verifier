@@ -5,10 +5,14 @@
 
 </div>
 
-<div class="actions" gdColumns="1fr auto">
-    <div>
+<div>
+    <div *ngIf="selectedMuscle; else noSelection">
         {{ selectedMuscle }}
     </div>
+    <ng-template #noSelection>
+        <span class="color-circle primary"></span> Primary
+        <span class="color-circle secondary"></span> Secondary
+    </ng-template>
     <div>
 
     </div>

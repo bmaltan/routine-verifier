@@ -1,3 +1,19 @@
 .selected-muscle {
     margin-top: 8px;
 }
+
+.color-circle {
+    height: 12px;
+    width: 12px;
+    margin: 0 10px;
+    border-radius: 20px;
+    display: inline-block;
+
+    &.primary {
+        background-color: rgb(201, 19, 201);
+    }
+
+    &.secondary {
+        background-color: rgb(62, 218, 218);
+    }
+}
